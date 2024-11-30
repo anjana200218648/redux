@@ -1,11 +1,16 @@
-import React from 'react';
-import { Categories } from '../assets/mockData';
+import React, { useEffect } from 'react';
+import { Categories, mockData } from '../assets/mockData';
 import Mainimage from '../assets/Images/mainimage.jpg';
 import SecondImage from '../assets/Images/main3.jpg';
 import threadImage from '../assets/Images/main5.jpg';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import InfoSection from '../components/InfoSection';
+import CategorySection from '../components/CategorySection';
+import { setProducts } from '../redux/cardSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const Home = () => {
   const settings = {
@@ -15,6 +20,11 @@ const Home = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+  const dispatch = useDispatch()
+  const product = useSelector(state =>state.product)
+  useEffect(()=>{
+    dispatch(setProducts(mockData))
+  },[])
 
   return (
     <div className='bg-white mt-2 px-4 md:px-16 lg:px-24'>
@@ -30,21 +40,28 @@ const Home = () => {
             ))}
           </ul>
         </div>
-        <div className='w-1024px md:w-9/12 mt-8 md:mt-0 h-96 relative'>
+        <div className='w-full md:w-9/12 mt-8 md:mt-0 h-65 relative mx-auto'> 
           <Slider {...settings}>
             <div>
-              <img src={Mainimage} alt="Main" className="w-1024px h-401px object-cover" />
+              <img src={Mainimage} alt="Main" className="w-full h-65 object-cover" />
             </div>
             <div>
-              <img src={SecondImage} alt="Second" className="w-full h-full object-cover" />
+              <img src={SecondImage} alt="Second" className="w-full h-65 object-cover" />
             </div>
             <div>
-              <img src={threadImage} alt="Second" className="w-full h-full object-cover" />
+              <img src={threadImage} alt="Thread" className="w-full h-65 object-cover" />
             </div>
-            {/* Add more images as needed */}
           </Slider>
-        </div>
+          </div>
       </div>
+      <div className='pt-50'>
+      <InfoSection/>
+      </div>
+      <div>
+        <CategorySection/>
+      </div>
+      
+      
     </div>
   );
 };
