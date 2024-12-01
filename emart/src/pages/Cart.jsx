@@ -1,96 +1,114 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaTrashAlt } from 'react-icons/fa';
 import EmptyCart from '../assets/Images/emptycart.png';
 import { addToCart } from '../redux/cardSlice'; // Ensure the correct path to your slice
+import Modal from '../components/Modal';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.card); // Access the cart slice from Redux
+   
+  const deliveryCost = 500; // Example delivery cost
+  const deliveryAddress = "1234, Example Street, City, Country"; // Example delivery address
+  
+   const [isModelOpen,setIsModelOpen]= useState(false)
 
   // Function to handle incrementing quantity
   const incrementQuantity = (product) => {
-    // Increase the quantity of the selected product
-    dispatch(addToCart({
-      ...product,
-      quantity: product.quantity + 1,
-    }));
+    dispatch(addToCart({ ...product, quantity: product.quantity + 1 }));
   };
 
   // Function to handle decrementing quantity
   const decrementQuantity = (product) => {
-    // Decrease the quantity only if it's greater than 1
     if (product.quantity > 1) {
-      dispatch(addToCart({
-        ...product,
-        quantity: product.quantity - 1,
-      }));
+      dispatch(addToCart({ ...product, quantity: product.quantity - 1 }));
     }
   };
 
   // Function to handle product removal
   const removeProduct = (productId) => {
-    // Dispatch a remove action here (you need to implement it in your slice)
-    // Example: dispatch(removeFromCart(productId));
+    // Logic to remove product from the cart (you can create a remove action in your slice)
+    // Dispatch a remove action here (create an action in your slice for removing)
   };
 
   return (
-    <div className="container mx-auto py-10 px-5">
+    <div className='container mx-auto py-8 min-h-96 px-16 lg:px-24'>
       {cart?.products?.length > 0 ? (
-        <div className="space-y-8">
-          <h2 className="text-2xl font-semibold text-center text-gray-800">Your Cart Items</h2>
-          <div className="overflow-x-auto bg-white shadow-md rounded-lg">
-            <div className="flex items-center justify-between border-b p-4 bg-gray-100">
-              <p className="text-lg font-medium text-gray-700">PRODUCTS</p>
-              <div className="flex space-x-4">
-                <p className="text-lg font-medium text-gray-700">PRICE</p>
-                <p className="text-lg font-medium text-gray-700">QUANTITY</p>
-                <p className="text-lg font-medium text-gray-700">SUBTOTAL</p>
-                <p className="text-lg font-medium text-gray-700">REMOVE</p>
-              </div>
-            </div>
-            <div>
-              {cart.products.map((product) => (
-                <div key={product.id} className="flex items-center justify-between p-4 border-b">
-                  <div className="flex items-center space-x-4">
-                    <img src={product.image} alt={product.name} className="h-16 w-16 object-cover rounded" />
-                    <div>
-                      <h3 className="text-lg font-medium text-gray-800">{product.name}</h3>
-                    </div>
-                  </div>
-                  <div className="flex space-x-4 items-center">
-                    <p className="text-gray-700">Rs.{product.price}</p>
-                    <div className="flex items-center space-x-2">
-                      <button
-                        onClick={() => decrementQuantity(product)}
-                        className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
-                      >
-                        -
-                      </button>
-                      <p className="text-gray-700">{product.quantity}</p>
-                      <button
-                        onClick={() => incrementQuantity(product)}
-                        className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
-                      >
-                        +
-                      </button>
-                    </div>
-                    <p className="text-gray-700">Rs{(product.quantity * product.price).toFixed(2)}</p>
-                    <button
-                      onClick={() => removeProduct(product.id)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      <FaTrashAlt />
-                    </button>
+        <div className='flex flex-wrap'>
+          {/* Cart Items Section */}
+          <div className='md:w-2/3 w-full'>
+            <h2 className='text-2xl font-semibold mb-4'>Your Cart Items</h2>
+            <div className='flex flex-col md:flex-row justify-between space-x-10 mt-8'>
+              <div className='w-full'>
+                <div className='flex justify-between border-b items-center mb-4 text-xs font-bold'>
+                  <p>PRODUCTS</p>
+                  <div className='flex space-x-8'>
+                    <p>PRICE</p>
+                    <p>QUANTITY</p>
+                    <p>SUBTOTAL</p>
+                    <p>REMOVE</p>
                   </div>
                 </div>
-              ))}
+                <div>
+                  {cart.products.map((product) => (
+                    <div key={product.id} className='flex items-center justify-between p-3 border-b'>
+                      <div className='md:flex items-center space-x-4'>
+                        <img src={product.image} alt={product.name} className='w-16 h-16 object-contain rounded' />
+                        <div className='flex-1 ml-4'>
+                          <h3 className='text-lg font-semibold'>{product.name}</h3>
+                        </div>
+                      </div>
+                      <div className='flex space-x-12 items-center'>
+                        <p>Rs.{product.price}</p>
+                        <div className="flex items-center justify-center border">
+                          <button onClick={() => decrementQuantity(product)} className='text-xl font-bold px-1.5 border-r'>-</button>
+                          <p className='text-xl px-2'>{product.quantity}</p>
+                          <button onClick={() => incrementQuantity(product)} className='text-xl px-1 border-l'>+</button>
+                        </div>
+                        <p>Rs{(product.quantity * product.price).toFixed(2)}</p>
+                        <button onClick={() => removeProduct(product.id)} className='text-red-500 hover:text-red-700'>
+                          <FaTrashAlt />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-          <div className="flex justify-between py-4 bg-gray-100 rounded-b-lg">
-            <p className="text-lg font-semibold text-gray-700">Total Quantity: {cart.totalQuantity}</p>
-            <p className="text-lg font-semibold text-gray-700">Total Price: Rs.{cart.totalPrice.toFixed(2)}</p>
+          {/* Add spacing between Cart Items and Order Summary */}
+          <div className='md:w-1/3 w-full md:ml-auto mt-8 md:mt-0 md:pl-10'>
+            <div className='bg-gray-100 p-4 rounded shadow-md'>
+              <h3 className='text-lg font-semibold mb-4'>Order Summary</h3>
+              <div className='flex justify-between mb-2'>
+                <p>Total Items:</p>
+                <p>{cart.totalQuantity}</p>
+              </div>
+              <div className='flex justify-between mb-2'>
+                <p>Delivery:</p>
+                <p>Rs.{deliveryCost.toFixed(2)}</p>
+              </div>
+              <div className='mb-2'>
+                <p>Delivery Address:</p>
+                <p className='text-sm text-gray-600'>{deliveryAddress}</p>
+                <button className='text-blue-500 hover:underline mt-1 ml-1 ' onClick={()=>setIsModelOpen(true)}>
+                  Change address
+                </button>
+              </div>
+              <div className='flex justify-between mb-4'>
+                <p>Total Price:</p>
+                <p>Rs.{(cart.totalPrice + deliveryCost).toFixed(2)}</p>
+              </div>
+              <button className='w-full bg-red-600 text-white py-2 rounded hover:bg-blue-700'>
+                Proceed to Checkout
+              </button>
+            </div>
           </div>
+          <Modal
+          isModelOpen={isModelOpen}
+          setIsModelOpen={setIsModelOpen}>
+          </Modal>
         </div>
       ) : (
         <div className="flex justify-center">
