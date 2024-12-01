@@ -1,16 +1,19 @@
 import React from 'react';
-
 import { IoIosSearch } from 'react-icons/io';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  // Select the totalQuantity from the Redux store
+  const totalQuantity = useSelector((state) => state.card?.totalQuantity || 0);
+
   return (
     <header className="h-16 shadow-md bg-white">
       <div className="h-full container mx-auto flex items-center px-5 justify-between">
         {/* Logo Section */}
-        <div className='text-lg font-bold'>
+        <div className="text-lg font-bold">
           <Link to="/">Emart</Link>
         </div>
 
@@ -19,43 +22,47 @@ const Header = () => {
           <input
             type="text"
             placeholder="Search product here....."
+            aria-label="Search products"
             className="w-full outline-none"
           />
           <div className="text-lg min-w-[50px] h-8 bg-red-700 flex items-center justify-center rounded-r-full text-white">
-            <IoIosSearch />
+            <IoIosSearch aria-label="Search" />
           </div>
         </div>
 
-        <div className='flex items-center justify-center space-x-10 py-4 text-sm font-bold '>
-            <Link to="/" className='hover:underline'>
+        {/* Navigation Links */}
+        <div className="flex items-center justify-center space-x-10 py-4 text-sm font-bold">
+          <Link to="/" className="hover:underline">
             Home
-            </Link>
-            <Link to="/" className='hover:underline'>
+          </Link>
+          <Link to="/shop" className="hover:underline">
             Shop
-            </Link>
-            <Link to="/" className='hover:underline'>
+          </Link>
+          <Link to="/contact" className="hover:underline">
             Contact
-            </Link>
-            <Link to="/" className='hover:underline'>
+          </Link>
+          <Link to="/about" className="hover:underline">
             About
-            </Link>
+          </Link>
         </div>
 
         {/* User & Cart Section */}
         <div className="flex items-center gap-7">
           {/* User Icon */}
-          <div className="text-3xl cursor-pointer">
+          <div className="text-3xl cursor-pointer" aria-label="User Profile">
             <FaRegCircleUser />
           </div>
 
           {/* Shopping Cart Icon */}
           <div className="text-2xl relative">
-            <span>
-              <FaShoppingCart />
-            </span>
-            <div className="bg-red-600 text-white w-5 h-5 rounded-full p-1 flex items-center justify-center absolute -top-2 -right-2">
-              <p className="text-xs">0</p>
-            </div>
+            <Link to="/cart">
+              <FaShoppingCart aria-label="Shopping Cart" />
+              {totalQuantity > 0 && (
+                <span className="absolute top-0 right-0 text-xs bg-red-600 text-white rounded-full px-1">
+                  {totalQuantity}
+                </span>
+              )}
+            </Link>
           </div>
 
           {/* Login Button */}

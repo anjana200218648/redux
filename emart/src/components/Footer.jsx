@@ -1,6 +1,7 @@
 // Footer.js
 import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import Shop from "../pages/Shop";
 
 const Footer = () => {
   return (
@@ -38,10 +39,15 @@ const Footer = () => {
             Quick Links
           </h3>
           <ul style={{ listStyle: "none", padding: 0 }}>
-            {["Home", "About", "Services", "Contact"].map((link) => (
-              <li key={link} style={{ marginBottom: "8px" }}>
+            {[
+              { name: "Home", link: "/" },
+              { name: "About", link: "/about" },
+              { name: "Shop", link: "/shop" },
+              { name: "Contact", link: "/contact" }
+            ].map(({ name, link }) => (
+              <li key={name} style={{ marginBottom: "8px" }}>
                 <a
-                  href="/#"
+                  href={link}
                   style={{
                     textDecoration: "none",
                     color: "#1f2937",
@@ -51,7 +57,7 @@ const Footer = () => {
                   onMouseOver={(e) => (e.target.style.color = "#cc0000")}
                   onMouseOut={(e) => (e.target.style.color = "#1f2937")}
                 >
-                  {link}
+                  {name}
                 </a>
               </li>
             ))}
@@ -67,7 +73,7 @@ const Footer = () => {
             Email: support@yourcompany.com
           </p>
           <p style={{ fontSize: "14px", color: "#4b5563", marginBottom: "10px" }}>
-            Phone: +1 (800) 123-4567
+            Phone: +94 (74) 384 2846
           </p>
           <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
             {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin].map((Icon, idx) => (
@@ -92,7 +98,7 @@ const Footer = () => {
         {/* Newsletter Section */}
         <div style={{ flex: "1 1 250px", minWidth: "250px" }}>
           <h3 style={{ fontSize: "18px", marginBottom: "10px", color: "#1f2937" }}>
-            Newsletter
+            Latest Discounts
           </h3>
           <p style={{ fontSize: "14px", color: "#4b5563", marginBottom: "10px" }}>
             Subscribe to our newsletter for updates on new products and offers.
