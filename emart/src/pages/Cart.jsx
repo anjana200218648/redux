@@ -4,13 +4,14 @@ import { FaTrashAlt } from 'react-icons/fa';
 import EmptyCart from '../assets/Images/emptycart.png';
 import { addToCart } from '../redux/cardSlice'; // Ensure the correct path to your slice
 import Modal from '../components/Modal';
+import ChangeAddress from '../components/ChangeAddress';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.card); // Access the cart slice from Redux
    
   const deliveryCost = 500; // Example delivery cost
-  const deliveryAddress = "1234, Example Street, City, Country"; // Example delivery address
+  const[address,setAddress] = useState( "1234, Example Street, City, Country"); // Example delivery address
   
    const [isModelOpen,setIsModelOpen]= useState(false)
 
@@ -91,7 +92,7 @@ const Cart = () => {
               </div>
               <div className='mb-2'>
                 <p>Delivery Address:</p>
-                <p className='text-sm text-gray-600'>{deliveryAddress}</p>
+                <p className='text-sm text-gray-600'>{address}</p>
                 <button className='text-blue-500 hover:underline mt-1 ml-1 ' onClick={()=>setIsModelOpen(true)}>
                   Change address
                 </button>
@@ -105,9 +106,9 @@ const Cart = () => {
               </button>
             </div>
           </div>
-          <Modal
-          isModelOpen={isModelOpen}
+          <Modal isModelOpen={isModelOpen}
           setIsModelOpen={setIsModelOpen}>
+            <ChangeAddress setAddress={setAddress} setIsModelOpen={setIsModelOpen}/>
           </Modal>
         </div>
       ) : (
