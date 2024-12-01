@@ -8,8 +8,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import InfoSection from '../components/InfoSection';
 import CategorySection from '../components/CategorySection';
-import { setProducts } from '../redux/cardSlice';
+import { setProducts } from '../redux/productSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import ProductCard from '../components/ProductCard';
 
 
 const Home = () => {
@@ -21,7 +22,7 @@ const Home = () => {
     slidesToScroll: 1,
   };
   const dispatch = useDispatch()
-  const product = useSelector(state =>state.product)
+  const Products = useSelector(state =>state.product)
   useEffect(()=>{
     dispatch(setProducts(mockData))
   },[])
@@ -60,7 +61,15 @@ const Home = () => {
       <div>
         <CategorySection/>
       </div>
-      
+      <div className='container mx-auto py-12'>
+        <h2 className='text-2xl font-bold mb-6 text-center'>Top Products</h2>
+        <div className='grid grid-cols-1 sm:grid-cole-2 md:grid-cols-4 lg:grid-cols-5 gap-6 cursor-pointer'>
+          {Products.products.slice(0,5).map(((product)=>
+          (
+            <ProductCard product={product}/>
+          )))}
+        </div>
+      </div>
       
     </div>
   );

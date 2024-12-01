@@ -6,7 +6,7 @@ const store = configureStore({
     reducer:{
         card:cardSlice,
         product: productSlice
-    }
-})
+    },
+});
 
 export default store;
