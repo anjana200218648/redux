@@ -2,17 +2,30 @@ import React, { useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from './Modal';
 import Login from './Login';
 import Register from './Register';
+import { setSearchTerm } from '../redux/productSlice';
+
 
 const Header = () => {
  const [isModelOpen,setIsModelOpen]= useState(false)
  const [isLogin,setIsLogin] = useState(true)
   const totalQuantity = useSelector((state) => state.card?.totalQuantity || 0);
-  
+  const [search ,setSearch] = useState()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleSearch = (e) =>{
+    e.preventDefault()
+    dispatch(setSearchTerm(search))
+    navigate('/filter-data')
+
+  }
+
+
  const openSignUp = () =>{
   setIsLogin(false)
   setIsModelOpen(true)
@@ -33,17 +46,26 @@ const Header = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow-md pl-4">
-          <input
-            type="text"
-            placeholder="Search product here....."
-            aria-label="Search products"
-            className="w-full outline-none"
-          />
-          <div className="text-lg min-w-[50px] h-8 bg-red-700 flex items-center justify-center rounded-r-full text-white">
-            <IoIosSearch aria-label="Search" />
-          </div>
-        </div>
+        
+        <div class="hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow-md pl-4">
+     <form class="flex items-center w-full" onSubmit={handleSearch}>
+    <input
+      type="text"
+      placeholder="Search product here....."
+      aria-label="Search products"
+      class="w-full outline-none bg-transparent"
+      onChange={(e)=> setSearch(e.target.value)}
+    />
+    <button
+      type="submit"
+      class="text-lg min-w-[50px] h-8 bg-red-700 flex items-center justify-center rounded-r-full text-white"
+      aria-label="Search"
+    >
+     <IoIosSearch aria-label="Search" />
+    </button>
+  </form>
+</div>
+        
 
         {/* Navigation Links */}
         <div className="flex items-center justify-center space-x-10 py-4 text-sm font-bold">
