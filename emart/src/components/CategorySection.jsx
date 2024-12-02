@@ -24,7 +24,7 @@ const CategorySection = () => {
           className="category-item relative flex flex-col items-center p-4 bg-transparent cursor-pointer transform transition duration-300 hover:scale-110"
         >
           {/* Blue Circle Background */}
-          <div className="absolute w-36 h-36 bg-blue-500 rounded-full -z-10"></div>
+          <div className="absolute w-36 h-36 bg-red-600 rounded-full -z-10"></div>
 
           {/* Category Image */}
           <img
