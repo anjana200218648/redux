@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaTrashAlt } from 'react-icons/fa';
 import EmptyCart from '../assets/Images/emptycart.png';
-import { addToCart } from '../redux/cardSlice'; // Ensure the correct path to your slice
+import { addToCart, decreaseQuantity, increaseQuantity, removeFormCart } from '../redux/cardSlice'; // Ensure the correct path to your slice
 import Modal from '../components/Modal';
 import ChangeAddress from '../components/ChangeAddress';
+import { useNavigate } from "react-router"
+
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -14,24 +16,11 @@ const Cart = () => {
   const[address,setAddress] = useState( "1234, Example Street, City, Country"); // Example delivery address
   
    const [isModelOpen,setIsModelOpen]= useState(false)
+  const navigate = useNavigate()
+  
 
-  // Function to handle incrementing quantity
-  const incrementQuantity = (product) => {
-    dispatch(addToCart({ ...product, quantity: product.quantity + 1 }));
-  };
-
-  // Function to handle decrementing quantity
-  const decrementQuantity = (product) => {
-    if (product.quantity > 1) {
-      dispatch(addToCart({ ...product, quantity: product.quantity - 1 }));
-    }
-  };
-
-  // Function to handle product removal
-  const removeProduct = (productId) => {
-    // Logic to remove product from the cart (you can create a remove action in your slice)
-    // Dispatch a remove action here (create an action in your slice for removing)
-  };
+  
+ 
 
   return (
     <div className='container mx-auto py-8 min-h-96 px-16 lg:px-24'>
@@ -63,12 +52,12 @@ const Cart = () => {
                       <div className='flex space-x-12 items-center'>
                         <p>Rs.{product.price}</p>
                         <div className="flex items-center justify-center border">
-                          <button onClick={() => decrementQuantity(product)} className='text-xl font-bold px-1.5 border-r'>-</button>
+                          <button onClick={() => dispatch(decreaseQuantity(product.id))} className='text-xl font-bold px-1.5 border-r'>-</button>
                           <p className='text-xl px-2'>{product.quantity}</p>
-                          <button onClick={() => incrementQuantity(product)} className='text-xl px-1 border-l'>+</button>
+                          <button onClick={() => dispatch(increaseQuantity(product.id))} className='text-xl px-1 border-l'>+</button>
                         </div>
                         <p>Rs{(product.quantity * product.price).toFixed(2)}</p>
-                        <button onClick={() => removeProduct(product.id)} className='text-red-500 hover:text-red-700'>
+                        <button onClick={() => dispatch(removeFormCart(product.id))} className='text-red-500 hover:text-red-700'>
                           <FaTrashAlt />
                         </button>
                       </div>
@@ -101,7 +90,7 @@ const Cart = () => {
                 <p>Total Price:</p>
                 <p>Rs.{(cart.totalPrice + deliveryCost).toFixed(2)}</p>
               </div>
-              <button className='w-full bg-red-600 text-white py-2 rounded hover:bg-blue-700'>
+              <button className='w-full bg-red-600 text-white py-2 rounded hover:bg-blue-700' onClick={()=>navigate('/checkout')} >
                 Proceed to Checkout
               </button>
             </div>

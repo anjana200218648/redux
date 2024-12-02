@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
 import { FaRegCircleUser } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Modal from './Modal';
+import Login from './Login';
+import Register from './Register';
 
 const Header = () => {
-  // Select the totalQuantity from the Redux store
+ const [isModelOpen,setIsModelOpen]= useState(false)
+ const [isLogin,setIsLogin] = useState(true)
   const totalQuantity = useSelector((state) => state.card?.totalQuantity || 0);
+  
+ const openSignUp = () =>{
+  setIsLogin(false)
+  setIsModelOpen(true)
+ }
+ const openLogin = () =>{
+  setIsLogin(true)
+  setIsModelOpen(true)
+ }
+
+
 
   return (
     <header className="h-16 shadow-md bg-white">
@@ -68,12 +83,15 @@ const Header = () => {
           {/* Login Button */}
           <div>
             <Link
-              to="/login"
+             
               className="bg-red-600 px-3 py-1 rounded-full text-white hover:bg-red-900"
-            >
+              onClick={()=>setIsModelOpen(true)}>
               Login
             </Link>
           </div>
+          <Modal isModelOpen={isModelOpen} setIsModelOpen={setIsModelOpen}>
+            {isLogin? <Login openSignUp={openSignUp}/>:<Register openLogin={openLogin}/>}
+          </Modal>
         </div>
       </div>
     </header>
