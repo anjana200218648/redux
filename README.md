@@ -47,7 +47,7 @@ npm run dev
 ```
 This will start the development server and you can view the project at http://localhost:5173 (default for Vite).
 
-###Project Structure
+##Project Structure
 ```bash
 Copy code
 src/
@@ -59,19 +59,19 @@ src/
 ├── index.css          # Tailwind css component
 ├── main.jsx           # Entry point of the application
 ```
-###Scripts
+##Scripts
 npm run dev or yarn dev: Start the development server.
 npm run build or yarn build: Create a production build.
 npm run preview or yarn preview: Preview the production build locally.
 
-###Dependencies
+##Dependencies
 React: 18.x.x
 Vite: 4.x.x
 Redux Toolkit: 1.x.x
 React Icons: 4.x.x
 Tailwind CSS: 3.x.x
 
-###Tailwind CSS Setup
+##Tailwind CSS Setup
 To customize the Tailwind configuration, modify the tailwind.config.js file. For example, to extend the theme with custom colors, you can add them under the extend section:
 
 ```javascript
@@ -91,11 +91,11 @@ module.exports = {
   plugins: [],
 }
 ```
-###Redux Setup
+##Redux Setup
 Redux slices are stored inside the src/features directory.
 The store is configured inside the src/redux/store.js file, and slices are added to it for managing state like cart, products, etc.
 
-###Contributing
+##Contributing
 We welcome contributions to improve the project! If you want to contribute:
 
 1.Fork the repository.
@@ -107,7 +107,7 @@ We welcome contributions to improve the project! If you want to contribute:
 7.License
 8.This project is licensed under the MIT License - see the LICENSE file for details.
 
-###Contact
+##Contact
 For more details, feel free to contact us at:
 
 Email: hashananjanahh3@gmail.com
