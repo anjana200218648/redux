@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaTrashAlt } from 'react-icons/fa';
 import EmptyCart from '../assets/Images/emptycart.png';
-import { addToCart, decreaseQuantity, increaseQuantity, removeFormCart } from '../redux/cardSlice'; // Ensure the correct path to your slice
+import { addToCart, decreaseQuantity, increaseQuantity, removeFormCart } from '../redux/cardSlice'; 
 import Modal from '../components/Modal';
 import ChangeAddress from '../components/ChangeAddress';
 import { useNavigate } from "react-router"
@@ -10,10 +10,10 @@ import { useNavigate } from "react-router"
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.card); // Access the cart slice from Redux
+  const cart = useSelector((state) => state.card); 
    
-  const deliveryCost = 500; // Example delivery cost
-  const[address,setAddress] = useState( "1234, Example Street, City, Country"); // Example delivery address
+  const deliveryCost = 500; 
+  const[address,setAddress] = useState( "1234, Example Street, City, Country"); 
   
    const [isModelOpen,setIsModelOpen]= useState(false)
   const navigate = useNavigate()

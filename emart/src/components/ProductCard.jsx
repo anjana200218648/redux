@@ -10,9 +10,9 @@ const ProductCard = ({ product }) => {
   
   const handleAddToCard = (e, product) => {
     e.stopPropagation();
-    e.preventDefault(); // Corrected the typo here
+    e.preventDefault(); 
     dispatch(addToCart(product));
-    alert("Product Added Successfully!"); // Fixed typo in the alert message
+    alert("Product Added Successfully!"); 
   };
 
   return (
@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
         className="w-full h-48 object-contain mb-4"
       />
       <h3 className="text-lg font-semibold">{product.name}</h3>
-      <p className="text-gray-500">${product.price}</p>
+      <p className="text-gray-500">Rs{product.price}</p>
       <div className="flex items-center mt-2">
         <FaStar className="text-yellow-500" />
         <FaStar className="text-yellow-500" />

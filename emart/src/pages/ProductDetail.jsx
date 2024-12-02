@@ -7,7 +7,7 @@ const ProductDetail = () => {
     const { id } = useParams();
     const products = useSelector(state => state.product.products);
     const dispatch = useDispatch();
-    const navigate = useNavigate(); // useNavigate hook to redirect to cart page
+    const navigate = useNavigate(); 
     const [product, setProduct] = useState(null);
 
     useEffect(() => {
@@ -22,8 +22,8 @@ const ProductDetail = () => {
 
     const handleAddToCart = () => {
         if (product) {
-            dispatch(addToCart(product)); // Dispatch action to add the product to the cart
-            navigate('/cart'); // Redirect to the cart page after adding the product
+            dispatch(addToCart(product)); 
+            navigate('/cart'); 
         }
     };
 
@@ -45,7 +45,7 @@ const ProductDetail = () => {
                         {/* Product Details */}
                         <div className="md:ml-8 w-full md:w-1/2">
                             <h1 className="text-3xl font-semibold text-red-600 mb-4">{product.name}</h1>
-                            <p className="text-xl text-gray-700 mb-4">Price: ${product.price}</p>
+                            <p className="text-xl text-gray-700 mb-4">Price: Rs{product.price}</p>
                             <p className="text-gray-600 mb-6">{product.description || 'No description available'}</p>
                             <button
                                 onClick={handleAddToCart}

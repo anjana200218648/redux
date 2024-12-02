@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaPhoneAlt, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
-import MapImage from '../assets/Images/map.png'; // Map image path
+import MapImage from '../assets/Images/map.png'; 
 
 const ContactUs = () => {
     return (

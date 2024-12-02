@@ -4,7 +4,7 @@ import {useNavigate } from 'react-router-dom';
 const Order = ({ order }) => {
   const navigate=useNavigate()
   if (!order) {
-    return <div className="text-center text-gray-500">Loading...</div>; // or an appropriate message like "Order not found"
+    return <div className="text-center text-gray-500">Loading...</div>; 
   }
 
   return (

@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const Checkout = ({setOrder}) => {
   const [activeSection, setActiveSection] = useState("billing");
-  const [paymentMethod, setPaymentMethod] = useState(""); // Track selected payment method
-  const cart = useSelector((state) => state.card); // Access cart data from Redux store
+  const [paymentMethod, setPaymentMethod] = useState(""); 
+  const cart = useSelector((state) => state.card); 
   const navigats = useNavigate()
   
 

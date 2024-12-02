@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaShoppingCart, FaUsers, FaPhoneAlt } from 'react-icons/fa'; // Icons for shopping cart, team, contact
+import { FaShoppingCart, FaUsers, FaPhoneAlt } from 'react-icons/fa'; 
 
 const About = () => {
   return (
